@@ -21,7 +21,9 @@ class App extends Component {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
     };
-    var a = await getSearch(options,"http://codebreakerdojo.herokuapp.com/api/codebreaker/" + this.state.valor);
+    console.log(this.state.valor);
+    //
+    var a = await getSearch(options,"https://codebreakerdojo.herokuapp.com/api/codebreaker/" + this.state.valor);
     this.setState({result: a});
   }
 
@@ -53,8 +55,7 @@ class App extends Component {
 
 function getSearch(options,url) {
   var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-
-  return fetch(proxyUrl + url, options).then(blob => blob.json()).then(data => {
+  return fetch(proxyUrl + url).then(blob => blob.json()).then(data => {
       return data;
   }).catch(e => {
       return e;
