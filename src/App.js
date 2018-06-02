@@ -6,7 +6,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      valor: " "
+      valor: " ",
+      result: []
     }
     this.tomarValor = this.tomarValor.bind(this);
     this.adivinar = this.adivinar.bind(this);
@@ -15,8 +16,14 @@ class App extends Component {
     this.setState({valor: e.target.value})
   }
 
-  adivinar(){
-
+  async adivinar(){
+      const options = {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+    };
+    var a = await getSearch(options,"http://codebreakerdojo.herokuapp.com/api/codebreaker/" + this.state.valor);
+    console.log(a);
+    this.setState({result: a});
   }
 
   render() {
@@ -37,9 +44,21 @@ class App extends Component {
         <p>
           <input type="label" value={this.state.valor}/>
         </p>
+        <p>
+          <input type="label" value={this.state.result.resultado}/>
+        </p>
       </div>
     );
   }
 }
 
+function getSearch(options,url) {
+  var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+
+  return fetch(proxyUrl + url, options).then(blob => blob.json()).then(data => {
+      return data;
+  }).catch(e => {
+      return e;
+  });
+}
 export default App;
