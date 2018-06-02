@@ -22,7 +22,6 @@ class App extends Component {
         headers: {'Content-Type': 'application/json'},
     };
     var a = await getSearch(options,"http://codebreakerdojo.herokuapp.com/api/codebreaker/" + this.state.valor);
-    console.log(a);
     this.setState({result: a});
   }
 
@@ -42,10 +41,10 @@ class App extends Component {
         <input type="button" value="Adivinar" onClick={this.adivinar}/>
         </p>
         <p>
-          <input type="label" value={this.state.valor}/>
+          Numero ingresado: {this.state.valor}
         </p>
         <p>
-          <input type="label" value={this.state.result.resultado}/>
+          Resultado: {this.state.result.resultado}
         </p>
       </div>
     );
